@@ -32,13 +32,30 @@ const LoginForm = () => {
     },
   });
 
+  const handleSubmit = form.handleSubmit(async (formData) => {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }).then((res) => res.json());
+
+    if (res.message === "ok") {
+      router.push("/");
+      return;
+    }
+
+    form.setError("password", {
+      type: "manual",
+      message: res.message,
+    });
+  });
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => {
-          console.log(data);
-        })}
+        onSubmit={handleSubmit}
         className="flex flex-col items-center space-y-4"
       >
         <FormField

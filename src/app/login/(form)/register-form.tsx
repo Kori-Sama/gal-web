@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { FieldWrapper } from "./form-utils";
 import SubmitButton from "@/components/button/submit-button";
-
+import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -24,9 +24,14 @@ const formSchema = z
     confirm: z.string().min(6, {
       message: "At least 6 characters long",
     }),
-    inviteCode: z.string().min(1, {
-      message: "Invite code is required",
-    }),
+    inviteCode: z
+      .string()
+      .min(1, {
+        message: "Invite code is required",
+      })
+      .uuid({
+        message: "Invalid invite code",
+      }),
   })
   .refine((data) => data.password === data.confirm, {
     message: "Passwords must match",
@@ -34,6 +39,8 @@ const formSchema = z
   });
 
 const RegisterForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,12 +50,35 @@ const RegisterForm = () => {
       inviteCode: "",
     },
   });
+
+  const handleSubmit = form.handleSubmit(async (formData) => {
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: formData.username,
+        password: formData.password,
+        inviteCode: formData.inviteCode,
+      }),
+    }).then((data) => data.json());
+
+    if (res.message === "ok") {
+      router.push("/");
+      return;
+    }
+
+    form.setError("inviteCode", {
+      type: "manual",
+      message: res.message,
+    });
+  });
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => {
-          console.log(data);
-        })}
+        onSubmit={handleSubmit}
         className="flex flex-col items-center space-y-2"
       >
         <FormField
@@ -104,11 +134,7 @@ const RegisterForm = () => {
             <FormItem>
               <FieldWrapper icon="inviteCode">
                 <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Invite code"
-                    {...field}
-                  />
+                  <Input type="text" placeholder="Invite code" {...field} />
                 </FormControl>
               </FieldWrapper>
               <FormMessageOccupation />
