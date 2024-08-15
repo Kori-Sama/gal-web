@@ -32,7 +32,7 @@ const WorkCard = ({ title, linkUrl, coverImage }: WorkCardProps) => {
           </Link>
         </CardTitle>
         <CardFooter className="flex gap-6 items-center justify-start">
-          <Button>Vote</Button>
+          {/* <Button>Vote</Button> */}
         </CardFooter>
       </div>
     </Card>

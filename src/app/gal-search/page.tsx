@@ -17,6 +17,7 @@ interface WorkType {
 
 const GalSearch = () => {
   const [results, setResults] = useState<WorkType[]>([]);
+  const [hasQuery, setHasQuery] = useState(false);
 
   return (
     <div>
@@ -33,6 +34,7 @@ const GalSearch = () => {
               coverImage: r.cover_image,
             }))
           );
+          setHasQuery(true);
         }}
         className="flex items-center justify-center mt-24 mb-4"
       >
@@ -48,14 +50,21 @@ const GalSearch = () => {
       </form>
       <Separator className="h-1 my-8" />
       <div className="flex flex-col gap-6 items-center justify-center">
-        {results.map((result) => (
-          <WorkCard
-            key={result.id}
-            title={result.title}
-            linkUrl={result.linkUrl}
-            coverImage={result.coverImage}
-          />
-        ))}
+        {results.length === 0 && hasQuery ? (
+          <h1 className="text-[30px] mt-36">
+            No results found. <br />
+            Please try searching for something else.
+          </h1>
+        ) : (
+          results.map((result) => (
+            <WorkCard
+              key={result.id}
+              title={result.title}
+              linkUrl={result.linkUrl}
+              coverImage={result.coverImage}
+            />
+          ))
+        )}
       </div>
     </div>
   );
