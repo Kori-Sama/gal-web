@@ -7,19 +7,28 @@ export const Bad = (message: string) => {
   );
 };
 
-export const Unauthorized = (message: string) => {
+export const Unauthorized = () => {
   return new Response(
     JSON.stringify({
-      message,
+      message: "Unauthorized",
     }),
     { status: 401 }
   );
 };
 
-export const NotFound = (message: string) => {
+export const Forbidden = () => {
   return new Response(
     JSON.stringify({
-      message,
+      message: "Forbidden",
+    }),
+    { status: 403 }
+  );
+};
+
+export const NotFound = () => {
+  return new Response(
+    JSON.stringify({
+      message: "Not Found",
     }),
     { status: 404 }
   );
