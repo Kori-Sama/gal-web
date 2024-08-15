@@ -1,5 +1,5 @@
 {
-  "id": "4c48f329-b827-4fc1-8590-67720b10ce7b",
+  "id": "e2a43af8-153d-4e40-9de7-7d27520a1cea",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -73,7 +73,7 @@
           "name": "is_generated_by_root",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": false
         }
       },
@@ -94,7 +94,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "invite_keys_key_unique": {
+          "name": "invite_keys_key_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "key"
+          ]
+        }
+      }
     },
     "public.users": {
       "name": "users",
@@ -123,7 +131,7 @@
           "type": "role",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'normal'"
         },
         "invited_by": {

@@ -1,0 +1,1 @@
+# 这是用于爬取Bangumi上的galgame的爬虫脚本

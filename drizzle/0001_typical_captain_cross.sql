@@ -1,1 +1,0 @@
-ALTER TABLE "invite_keys" ADD CONSTRAINT "invite_keys_key_unique" UNIQUE("key");
