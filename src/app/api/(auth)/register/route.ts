@@ -65,6 +65,7 @@ export async function POST(req: Request) {
   await setSession({
     id: responseInfo.id,
     username: responseInfo.username,
+    role: responseInfo.role,
   });
 
   return Created(responseInfo);

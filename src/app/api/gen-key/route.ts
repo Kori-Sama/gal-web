@@ -15,13 +15,7 @@ export async function POST(req: Request) {
   }
 
   // get the user role from database
-  const role = await db
-    .select({
-      role: users.role,
-    })
-    .from(users)
-    .where(eq(users.id, session.id))
-    .then((data) => data.at(0)?.role);
+  const role = session.role;
 
   if (role !== "admin" && role !== "root") {
     return Forbidden();

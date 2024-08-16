@@ -37,7 +37,7 @@ yarn-error.log*
 next-env.d.ts
 
 #drizzle
-/drizzle
+/drizzle/
 
 crawler-env
 /scripts/crawler/data.csv

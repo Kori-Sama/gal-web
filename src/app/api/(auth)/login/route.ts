@@ -37,6 +37,7 @@ export async function POST(req: Request) {
   await setSession({
     id: userQuery.id,
     username: userQuery.username,
+    role: userQuery.role,
   });
 
   return Ok({

@@ -1,7 +1,7 @@
 import WorkCard from "@/components/card/work-card";
 import SearchBar from "@/components/search-bar";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <main className="flex w-full mt-20 items-center justify-center">
       <WorkCard

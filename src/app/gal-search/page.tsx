@@ -15,7 +15,7 @@ interface WorkType {
   coverImage: string;
 }
 
-const GalSearch = () => {
+const GalSearchPage = () => {
   const [results, setResults] = useState<WorkType[]>([]);
   const [hasQuery, setHasQuery] = useState(false);
 
@@ -70,4 +70,4 @@ const GalSearch = () => {
   );
 };
 
-export default GalSearch;
+export default GalSearchPage;
