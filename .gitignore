@@ -38,6 +38,3 @@ next-env.d.ts
 
 #drizzle
 /drizzle/
-
-crawler-env
-/scripts/crawler/data.csv
