@@ -37,6 +37,12 @@ export async function POST(req: Request) {
     return Bad("Invite code doesn't exist");
   }
 
+  // validate the qq number
+  const res = await fetch(`/api/qq-info?qq=${qqNumber}`);
+  if (!res.ok) {
+    return Bad("QQ number not found");
+  }
+
   const hashedPassword = await hashPassword(password);
 
   // Create the user
