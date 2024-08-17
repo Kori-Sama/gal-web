@@ -6,9 +6,9 @@ import { setSession } from "@/lib/session";
 import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
-  const { username, password } = await req.json();
+  const { qqNumber, password } = await req.json();
 
-  if (!username || !password) {
+  if (!qqNumber || !password) {
     return Bad("Missing required fields");
   }
 
@@ -16,12 +16,12 @@ export async function POST(req: Request) {
     await db
       .select({
         id: users.id,
-        username: users.username,
+        qqNumber: users.qqNumber,
         passwordHash: users.passwordHash,
         role: users.role,
       })
       .from(users)
-      .where(eq(users.username, username))
+      .where(eq(users.qqNumber, qqNumber))
   ).at(0);
 
   if (!userQuery) {
@@ -36,13 +36,13 @@ export async function POST(req: Request) {
 
   await setSession({
     id: userQuery.id,
-    username: userQuery.username,
+    qqNumber: userQuery.qqNumber,
     role: userQuery.role,
   });
 
   return Ok({
     id: userQuery.id,
-    username: userQuery.username,
+    qqNumber: userQuery.qqNumber,
     role: userQuery.role,
   });
 }

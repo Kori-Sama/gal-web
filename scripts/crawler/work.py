@@ -6,7 +6,7 @@ class Work():
         self.link_url = link_url
 
     def __str__(self) -> str:
-        return self.to_csv()
+        return f'{self.title},{self.cover_image},{self.link_url}'
 
     def to_csv(self) -> str:
-        return f'{self.title},{self.cover_image},{self.link_url}'
+        return f'"{self.title}","{self.cover_image}","{self.link_url}"'

@@ -1,3 +1,5 @@
 /crawler-env/
 data.csv
 cookies.txt
+
+__pycache__/

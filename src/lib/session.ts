@@ -2,16 +2,22 @@ import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { env } from "./env";
-import { Role } from "./types";
+import { Role, UserInfo } from "./types";
 
 const key = new TextEncoder().encode(env.JWT_SECRET);
 
 export interface Session extends JWTPayload {
   id: string;
-  username: string;
+  qqNumber: string;
   role: Role;
   exp: number;
 }
+
+export const sessionToUserInfo = (session: Session): UserInfo => ({
+  id: session.id,
+  qqNumber: session.qqNumber,
+  role: session.role,
+});
 
 export const encrypt = async (payload: Session) => {
   return await new SignJWT(payload)
@@ -33,15 +39,15 @@ export const getSession = async () => {
 
 export const setSession = async ({
   id,
-  username,
+  qqNumber,
   role,
 }: {
   id: string;
-  username: string;
+  qqNumber: string;
   role: Role;
 }) => {
   const exp = Date.now() / 1000 + env.JWT_EXPIRE;
-  const session = await encrypt({ id, username, role, exp });
+  const session = await encrypt({ id, qqNumber: qqNumber, role, exp });
 
   console.log(exp);
   cookies().set("session", session, { expires: exp * 1000, httpOnly: true });

@@ -5,7 +5,7 @@
 - **Next.js**: our core framework in this website
 - **Drizzle**: the ORM we use to operate database
 - **Postgresql**: the main database
-- **tailwind**: the atom css (I really like it)
+- **tailwind**: the atomic css (I really like it)
 - **Shadcn**: the style-less component library
 
 ## How to start

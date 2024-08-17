@@ -16,7 +16,7 @@ export const roleEnum = pgEnum("role", ["normal", "admin", "root"]);
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey(),
-  username: varchar("username").notNull().unique(),
+  qqNumber: varchar("qq_number").notNull().unique(),
   passwordHash: varchar("password_hash").notNull(),
   role: roleEnum("role").notNull().default("normal"),
   invitedBy: uuid("invited_by").references((): AnyPgColumn => users.id),

@@ -7,9 +7,9 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 export async function POST(req: Request) {
-  const { username, password, inviteCode } = await req.json();
+  const { qqNumber, password, inviteCode } = await req.json();
 
-  if (!username || !password || !inviteCode) {
+  if (!qqNumber || !password || !inviteCode) {
     return Bad("Missing required fields");
   }
 
@@ -45,14 +45,14 @@ export async function POST(req: Request) {
       .insert(users)
       .values({
         id: inviteKeyData.key,
-        username,
+        qqNumber,
         passwordHash: hashedPassword,
         role: inviteKeyData.isGeneratedByRoot ? "admin" : "normal",
         invitedBy: inviteKeyData.generatedBy,
       })
       .returning({
         id: users.id,
-        username: users.username,
+        qqNumber: users.qqNumber,
         role: users.role,
         invitedBy: users.invitedBy,
       })
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
 
   await setSession({
     id: responseInfo.id,
-    username: responseInfo.username,
+    qqNumber: responseInfo.qqNumber,
     role: responseInfo.role,
   });
 

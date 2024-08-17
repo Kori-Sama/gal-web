@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 interface FieldWrapperProps {
   className?: string;
   children: React.ReactNode;
-  icon: "username" | "password" | "confirm" | "inviteCode";
+  icon: "qqNumber" | "password" | "confirm" | "inviteCode";
 }
 
 export const FieldWrapper = ({
@@ -15,7 +15,7 @@ export const FieldWrapper = ({
 }: FieldWrapperProps) => {
   let iconComponent: ReactNode;
   switch (icon) {
-    case "username":
+    case "qqNumber":
       iconComponent = <User />;
       break;
     case "password":
@@ -26,7 +26,7 @@ export const FieldWrapper = ({
       break;
     case "inviteCode":
       iconComponent = <RectangleEllipsis />;
-      break
+      break;
   }
   return (
     <div className={cn("flex items-center gap-4", className)}>

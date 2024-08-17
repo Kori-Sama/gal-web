@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
-    username: z.string().min(1, {
+    qqNumber: z.string().min(1, {
       message: "Username is required",
     }),
     password: z.string().min(6, {
@@ -44,7 +44,7 @@ const RegisterForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      qqNumber: "",
       password: "",
       confirm: "",
       inviteCode: "",
@@ -58,7 +58,7 @@ const RegisterForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: formData.username,
+        qqNumber: formData.qqNumber,
         password: formData.password,
         inviteCode: formData.inviteCode,
       }),
@@ -83,12 +83,12 @@ const RegisterForm = () => {
       >
         <FormField
           control={form.control}
-          name="username"
+          name="qqNumber"
           render={({ field }) => (
             <FormItem>
-              <FieldWrapper icon="username">
+              <FieldWrapper icon="qqNumber">
                 <FormControl>
-                  <Input placeholder="Username" {...field} />
+                  <Input placeholder="QQ Number" {...field} />
                 </FormControl>
               </FieldWrapper>
               <FormMessageOccupation />

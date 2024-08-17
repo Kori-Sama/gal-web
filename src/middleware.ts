@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { getSession, updateSession } from "./lib/session";
+import { isAdmin } from "./lib/utils";
 
 // Specify protected and public routes
 const publicRoutes = ["/login", "/"];
@@ -15,15 +15,18 @@ export default async function middleware(req: NextRequest) {
   const isAdminRoute = adminRoutes.includes(path);
 
   const session = await getSession();
+
   const isSessionValid =
-    session !== null && !session?.id && session.exp > Date.now() / 1000;
+    session && session?.id && session.exp > Date.now() / 1000;
 
   // Redirect to /login if the user is not authenticated
   if ((isProtectedRoute || isAdminRoute) && !isSessionValid) {
-    return NextResponse.redirect(new URL("/login", req.nextUrl));
+    return NextResponse.redirect(
+      new URL("/login?is_redirected=true", req.nextUrl)
+    );
   }
 
-  if (isAdminRoute && session?.role !== "admin") {
+  if (isAdminRoute && !isAdmin(session?.role)) {
     return NextResponse.redirect(new URL("/forbidden", req.nextUrl));
   }
 

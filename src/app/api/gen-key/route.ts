@@ -1,8 +1,8 @@
 import { db } from "@/db";
-import { inviteKeys, users } from "@/db/schema";
+import { inviteKeys } from "@/db/schema";
 import { Created, Forbidden, Unauthorized } from "@/lib/response";
 import { getSession } from "@/lib/session";
-import { eq } from "drizzle-orm";
+import { isAdmin } from "@/lib/utils";
 
 /**
  * generate invite key using uuid
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   // get the user role from database
   const role = session.role;
 
-  if (role !== "admin" && role !== "root") {
+  if (!isAdmin(role)) {
     return Forbidden();
   }
 

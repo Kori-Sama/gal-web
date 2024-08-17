@@ -14,8 +14,8 @@ import { useRouter } from "next/navigation";
 import SubmitButton from "@/components/button/submit-button";
 
 const formSchema = z.object({
-  username: z.string().min(1, {
-    message: "Username is required",
+  qqNumber: z.string().min(1, {
+    message: "QQ number is required",
   }),
   password: z.string().min(6, {
     message: "At least 6 characters long",
@@ -27,7 +27,7 @@ const LoginForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      qqNumber: "",
       password: "",
     },
   });
@@ -60,12 +60,12 @@ const LoginForm = () => {
       >
         <FormField
           control={form.control}
-          name="username"
+          name="qqNumber"
           render={({ field }) => (
             <FormItem>
-              <FieldWrapper icon="username">
+              <FieldWrapper icon="qqNumber">
                 <FormControl>
-                  <Input placeholder="Username" {...field} />
+                  <Input placeholder="QQ Number" {...field} />
                 </FormControl>
               </FieldWrapper>
               <FormMessageOccupation />

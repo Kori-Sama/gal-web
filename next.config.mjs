@@ -8,6 +8,18 @@ const nextConfig = {
         port: "",
         pathname: "/pic/**",
       },
+      {
+        protocol: "https",
+        hostname: "i1.hdslb.com",
+        port: "",
+        pathname: "/bfs/**",
+      },
+      {
+        protocol: "https",
+        hostname: "q3.qlogo.cn",
+        port: "",
+        pathname: "/headimg_dl/**",
+      },
     ],
   },
 };

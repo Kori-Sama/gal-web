@@ -15,12 +15,13 @@ interface WorkType {
   coverImage: string;
 }
 
-const GalSearchPage = () => {
+const VotePage = () => {
   const [results, setResults] = useState<WorkType[]>([]);
   const [hasQuery, setHasQuery] = useState(false);
 
   return (
-    <div>
+    <main className="h-full">
+      <div className="h-24" />
       <form
         action={async (formData) => {
           const res = await search(formData);
@@ -36,7 +37,7 @@ const GalSearchPage = () => {
           );
           setHasQuery(true);
         }}
-        className="flex items-center justify-center mt-24 mb-4"
+        className="flex items-center justify-center mb-4"
       >
         <Input
           type="text"
@@ -66,8 +67,8 @@ const GalSearchPage = () => {
           ))
         )}
       </div>
-    </div>
+    </main>
   );
 };
 
-export default GalSearchPage;
+export default VotePage;
