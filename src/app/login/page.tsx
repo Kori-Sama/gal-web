@@ -8,10 +8,10 @@ const LoginPage = ({
   const isRedirected = searchParams["is_redirected"] === "true";
 
   return (
-    <main className="flex h-screen flex-col items-center justify-center">
-      <div className="h-20 flex flex-col justify-end">
-        <h1 className="cursor-default text-[30px] font-bold pb-8">
-          {isRedirected ? "你还没登录哦" : "Login"}
+    <main className="flex h-full flex-col items-center justify-center">
+      <div className="flex h-10 flex-col justify-end pb-8 text-center">
+        <h1 className="cursor-default text-[2rem] font-bold">
+          {isRedirected ? "你还没登录哦" : "登录"}
         </h1>
       </div>
       <LoginTableWithImage />

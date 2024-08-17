@@ -5,3 +5,15 @@ export type UserInfo = {
   qqNumber: string;
   role: Role;
 };
+
+export type CategoryType = {
+  id: string;
+  name: string;
+};
+
+export type WorkType = {
+  id: number;
+  title: string;
+  linkUrl: string;
+  coverImage: string;
+};

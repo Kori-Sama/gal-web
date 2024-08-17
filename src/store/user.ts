@@ -6,7 +6,7 @@ interface UserState {
   setUserInfo: (userInfo: UserInfo) => void;
 }
 
-export const useUser = create<UserState>((set) => ({
+export const useUser = create<UserState>()(set => ({
   userInfo: { id: "", qqNumber: "No Login", role: "normal" },
   setUserInfo: (userInfo: UserInfo) => {
     set({ userInfo });

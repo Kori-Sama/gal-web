@@ -21,13 +21,13 @@ const NavItems = ({ ...props }: NavItemsProps) => {
           <p>Admin</p>
         </LinkItem>
       )}
-      <LinkItem href="/about" {...props}>
-        <Bolt />
-        <p>About</p>
-      </LinkItem>
       <LinkItem href="/vote" {...props}>
         <Vote />
         <p>Vote</p>
+      </LinkItem>
+      <LinkItem href="/about" {...props}>
+        <Bolt />
+        <p>About</p>
       </LinkItem>
       <LinkItem href="/" {...props}>
         <Home />
