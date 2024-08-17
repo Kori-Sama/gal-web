@@ -1,6 +1,5 @@
 import LinkWithIcon from "@/components/link-with-icon";
 import TextWithDot from "@/components/text-with-dot";
-import { Avatar } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -8,24 +7,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
-import React from "react";
 import { PanelTop } from "lucide-react";
 import GithubIcon from "@/components/icons/github";
 import BilibiliIcon from "@/components/icons/bilibili";
 import DiscordIcon from "@/components/icons/discord";
+import AvatarKori from "./avatar-kori";
 
 const ProfileKori = () => {
   return (
     <Card className="flex flex-col items-center justify-center pt-4">
-      <Avatar className="size-28">
-        <Image
-          src="https://q3.qlogo.cn/headimg_dl?dst_uin=2923038671&spec=640"
-          alt="KoriSama"
-          width={300}
-          height={300}
-        />
-      </Avatar>
+      <AvatarKori />
       <CardTitle className="mt-4">Kori Sama</CardTitle>
       <CardDescription className="text-center">
         Full Stack Developer
