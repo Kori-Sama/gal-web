@@ -51,15 +51,15 @@ const SearchArea = () => {
         <Input
           type="text"
           placeholder="Search"
-          className="max-h-fit w-[200px] bg-card px-4"
+          className="max-h-fit w-[200px] px-4"
           name="query"
         />
         <Button className="ml-2" type="submit">
           Search
         </Button>
       </form>
-      <ScrollArea className="h-[700px] w-[360px] flex-grow rounded-md border border-foreground p-8">
-        <div className="flex flex-col items-center justify-center gap-6">
+      <ScrollArea className="mb-8 h-[600px] w-[360px] flex-grow rounded-md border border-foreground">
+        <div className="flex flex-col items-center justify-center gap-8 py-8">
           {results.length === 0 && hasQuery ? (
             <h1 className="mt-36 text-[30px]">
               No results found. <br />

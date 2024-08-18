@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { inviteKeys, users } from "@/db/schema";
 import { hashPassword } from "@/lib/hash";
 import { Bad, Created, ServerError } from "@/lib/response";
+import { fetchQqInfo } from "@/lib/services";
 import { setSession } from "@/lib/session";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
@@ -38,8 +39,8 @@ export async function POST(req: Request) {
   }
 
   // validate the qq number
-  const res = await fetch(`/api/qq-info?qq=${qqNumber}`);
-  if (!res.ok) {
+  const isQqExist = fetchQqInfo(qqNumber);
+  if (!isQqExist) {
     return Bad("QQ number not found");
   }
 

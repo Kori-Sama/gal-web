@@ -4,13 +4,26 @@ import { CategoryType, WorkType } from "@/lib/types";
 const MAX_CATEGORY_VOTE = 3;
 
 interface VotedWorkState {
+  currentYear: number;
+  /**
+   * 从服务器获取的所有分类
+   */
   categories: CategoryType[];
+  /**
+   * 每个分类被投票的作品
+   */
   categoryVotes: Map<string, WorkType[]>;
+  /**
+   * 从服务器获取所有分类, 只需调用一次
+   */
   fetchCategories: () => Promise<void>;
   vote: (work: WorkType, categoryId: string) => boolean;
+  cancelVote: (workId: number, categoryId: string) => void;
+  submitVotes: () => Promise<void>;
 }
 
 export const useVotedWork = create<VotedWorkState>()((set, get) => ({
+  currentYear: 0x0721,
   categories: [],
   categoryVotes: new Map(),
   fetchCategories: async () => {
@@ -47,5 +60,41 @@ export const useVotedWork = create<VotedWorkState>()((set, get) => ({
     });
 
     return true;
+  },
+  cancelVote: (workId, categoryId) => {
+    if (!categoryId) return;
+    if (!get().categoryVotes.has(categoryId)) return;
+
+    const categoryVotes = get().categoryVotes.get(categoryId)!;
+    const newCategoryVotes = categoryVotes.filter(w => w.id !== workId);
+
+    set({
+      categoryVotes: new Map(
+        get().categoryVotes.set(categoryId, newCategoryVotes),
+      ),
+    });
+  },
+  submitVotes: async () => {
+    const votes = Array.from(get().categoryVotes).map(
+      ([categoryId, works]) => ({
+        categoryId: parseInt(categoryId),
+        works: works.map(w => w.id),
+      }),
+    );
+
+    const res = await fetch("api/votes/submit", {
+      method: "POST",
+      body: JSON.stringify({
+        year: get().currentYear,
+        votes,
+      }),
+    });
+
+    if (!res.ok) {
+      console.error("Failed to submit votes");
+      return;
+    }
+
+    // set({ categoryVotes: new Map() });
   },
 }));

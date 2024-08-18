@@ -32,12 +32,30 @@ interface WorkCardProps {
 const WorkCard = ({ work, categories }: WorkCardProps) => {
   const { title, coverImage, linkUrl } = work;
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string>("");
-
   const vote = useVotedWork(s => s.vote);
+  const categoryVotes = useVotedWork(s => s.categoryVotes);
+  const cancelVote = useVotedWork(s => s.cancelVote);
+
+  const selects: string[] = [];
+
+  categoryVotes.forEach((works, category) => {
+    works.forEach(w => {
+      if (work.id === w.id) {
+        selects.push(category);
+      }
+    });
+
+    if (!categories) {
+      setOpen(false);
+    }
+
+    // if (selects.length >= categories!.length) {
+    //   setOpen(false);
+    // }
+  });
 
   return (
-    <Card className="flex h-[160px] w-[300px] transform items-center justify-start border-b-4 bg-muted px-4 transition-transform hover:scale-105">
+    <Card className="flex h-[160px] w-[300px] transform items-center justify-start px-4 transition-transform hover:scale-105">
       <Image
         src={coverImage}
         alt={title}
@@ -61,9 +79,7 @@ const WorkCard = ({ work, categories }: WorkCardProps) => {
                   aria-expanded={open}
                   className="w-[120px] justify-between"
                 >
-                  {selected
-                    ? categories.find(c => c.id === selected)?.name
-                    : "Select"}
+                  {"Select"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -76,24 +92,25 @@ const WorkCard = ({ work, categories }: WorkCardProps) => {
                       {categories.map(c => (
                         <CommandItem
                           key={c.id}
-                          value={c.id.toString()}
+                          value={c.id}
                           onSelect={currentValue => {
-                            setSelected(
-                              currentValue === selected ? "" : currentValue,
-                            );
+                            if (selects.find(w => w === c.id)) {
+                              cancelVote(work.id, c.id);
+                              return;
+                            }
 
                             const isVoteSuccess = vote(work, currentValue);
                             if (!isVoteSuccess) {
                               console.log("Failed to vote");
-                              setSelected("");
                             }
-                            setOpen(false);
                           }}
                         >
                           <Check
                             className={cn(
                               "mr-2 h-4 w-4",
-                              selected === c.id ? "opacity-100" : "opacity-0",
+                              selects.find(w => w === c.id)
+                                ? "opacity-100"
+                                : "opacity-0",
                             )}
                           />
                           {c.name}

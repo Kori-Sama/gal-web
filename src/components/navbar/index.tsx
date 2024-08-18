@@ -24,7 +24,7 @@ const Navbar = ({ userInfo }: NavbarProps) => {
   }, [userInfo, setUserInfo]);
 
   return (
-    <nav className="fixed z-50 flex h-16 w-screen items-center justify-between overflow-hidden border-b-2 border-white bg-background bg-card p-2 px-2 shadow-md dark:border-slate-400 md:px-8">
+    <nav className="fixed z-50 flex h-16 w-screen items-center justify-between overflow-hidden border-b-2 border-white p-2 px-2 shadow-md dark:border-slate-400 md:px-8">
       {isDesktop ? (
         <>
           <div className="flex items-center space-x-2">

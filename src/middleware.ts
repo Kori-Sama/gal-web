@@ -3,11 +3,14 @@ import { getSession, updateSession } from "./lib/session";
 import { isAdmin } from "./lib/utils";
 
 // Specify protected and public routes
-const publicRoutes = ["/login", "/"];
+const publicRoutes = ["/login", "/about", "/"];
 const protectedRoutes = ["/vote"];
 const adminRoutes = ["/admin"];
 
 export default async function middleware(req: NextRequest) {
+  // get current path
+  const headers = new Headers(req.headers);
+  headers.set("x-current-path", req.nextUrl.pathname);
   // Check if the current route is protected or public
   const path = req.nextUrl.pathname;
   const isPublicRoute = publicRoutes.includes(path);
@@ -22,7 +25,7 @@ export default async function middleware(req: NextRequest) {
   // Redirect to /login if the user is not authenticated
   if ((isProtectedRoute || isAdminRoute) && !isSessionValid) {
     return NextResponse.redirect(
-      new URL("/login?is_redirected=true", req.nextUrl)
+      new URL("/login?is_redirected=true", req.nextUrl),
     );
   }
 
