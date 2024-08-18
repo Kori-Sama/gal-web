@@ -17,3 +17,11 @@ export type WorkType = {
   linkUrl: string;
   coverImage: string;
 };
+
+export type InviteKeyType = {
+  id: number;
+  key: string;
+  generatedBy: string;
+  createdAt: Date;
+  expiresAt: Date;
+};

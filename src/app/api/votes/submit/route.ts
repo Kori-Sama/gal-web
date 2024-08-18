@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { votes } from "@/db/schema";
 import { Bad, Ok, ServerError, Unauthorized } from "@/lib/response";
+import { getOpenedRound } from "@/lib/services";
 import { getSession } from "@/lib/session";
 import { and, eq } from "drizzle-orm";
 import { z } from "zod";
@@ -15,7 +16,6 @@ export async function POST(req: Request) {
 
   const body = await req.json();
   const reqSchema = z.object({
-    roundId: z.number(),
     votes: z.array(
       z.object({
         categoryId: z.number(),
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     return Bad("Invalid request body");
   }
 
-  const { roundId, votes: votesData } = parsedData.data;
+  const { votes: votesData } = parsedData.data;
   // check repeated category
   const categorySet = new Set<number>();
   for (const vote of votesData) {
@@ -49,6 +49,13 @@ export async function POST(req: Request) {
       workSet.add(workId);
     }
   }
+
+  const openedRound = await getOpenedRound();
+  if (!openedRound) {
+    return Bad("No opened round");
+  }
+
+  const roundId = openedRound.id;
 
   // Check if the user has already voted
   const res = await db

@@ -17,9 +17,19 @@ export const openedRounds = pgTable("opened_round", {
   id: serial("id").primaryKey(),
   roundName: varchar("round_name").notNull(), // 可以投票的年份
   hasEnded: boolean("has_ended").notNull().default(false), // 是否已经结束投票
+  openBy: uuid("open_by")
+    .notNull()
+    .references(() => users.id), // 由谁开启的投票
   updateAt: timestamp("update_at").defaultNow(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+
+export const openedRoundsRelations = relations(openedRounds, ({ one }) => ({
+  openBy: one(users, {
+    fields: [openedRounds.openBy],
+    references: [users.id],
+  }),
+}));
 
 export const votes = pgTable(
   "votes",

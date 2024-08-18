@@ -1,8 +1,11 @@
+import ContentCard from "@/components/card/content-card";
+import KeyGen from "./key-gen";
+
 const AdminPage = () => {
   return (
-    <div>
-      <h1>Admin Page</h1>
-    </div>
+    <ContentCard title="Admin">
+      <KeyGen />
+    </ContentCard>
   );
 };
 

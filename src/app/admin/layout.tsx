@@ -1,6 +1,4 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import AdminSideBar from "./sidebar";
-import { headers } from "next/headers";
 
 const AdminLayout = ({
   children,
@@ -8,11 +6,6 @@ const AdminLayout = ({
   children: React.ReactNode;
 }>) => {
   const isDesktop = true;
-  const headerList = headers();
-  const pathname = headerList.get("x-current-path");
-  const subPath = pathname?.split("/")[1];
-
-  console.log(pathname);
 
   return (
     <div className="m-auto max-w-7xl">
@@ -25,10 +18,7 @@ const AdminLayout = ({
           )}
         </div>
         <div className="order-1 col-span-3 bg-white bg-opacity-0 p-2 md:order-2 md:col-span-4 lg:col-span-3">
-          <Card>
-            <CardTitle>{subPath}</CardTitle>
-            <CardContent>{children}</CardContent>
-          </Card>
+          <main>{children}</main>
         </div>
       </div>
     </div>

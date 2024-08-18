@@ -1,6 +1,7 @@
 import React from "react";
 import ProfileKori from "./profile-kori";
-import ContentCard from "./content";
+import Content from "./content";
+import ContentCard from "@/components/card/content-card";
 
 const AboutPage = () => {
   const isDesktop = true;
@@ -16,7 +17,9 @@ const AboutPage = () => {
         </div>
         <div className="order-1 col-span-3 bg-white bg-opacity-0 p-2 md:order-2 md:col-span-4 lg:col-span-3">
           <main>
-            <ContentCard />
+            <ContentCard title="About">
+              <Content />
+            </ContentCard>
           </main>
         </div>
       </div>

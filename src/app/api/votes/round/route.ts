@@ -34,7 +34,7 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  const roundName = body.round as string;
+  const roundName = body.roundName as string;
 
   if (!roundName) {
     return Bad("Invalid request body");
@@ -47,8 +47,9 @@ export async function POST(req: Request) {
   }
 
   try {
-    await db.insert(openedRounds).values({ roundName });
+    await db.insert(openedRounds).values({ roundName, openBy: session.id });
   } catch (e) {
+    console.error(e);
     return Bad("Failed to open vote");
   }
 
@@ -69,16 +70,12 @@ export async function DELETE(req: Request) {
     return Forbidden();
   }
 
-  // get id from url path param
-
-  const pathname = new URL(req.url).pathname;
-  const roundIdParam = pathname.split("/").pop();
-
-  if (!roundIdParam) {
-    return Bad("Invalid request");
+  const openedRound = await getOpenedRound();
+  if (!openedRound) {
+    return Bad("No opened round");
   }
 
-  const roundId = parseInt(roundIdParam);
+  const roundId = openedRound.id;
 
   try {
     await db

@@ -16,6 +16,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { WorkType } from "@/lib/types";
 import { useVotedWork } from "@/store/voted-work";
+import { useState } from "react";
 
 interface VotedWorkProps {
   roundId: number;
@@ -26,6 +27,9 @@ const VotedWorks = ({ roundId, roundName }: VotedWorkProps) => {
   const categories = useVotedWork(s => s.categories);
   const categoryVotes = useVotedWork(s => s.categoryVotes);
   const submitVotes = useVotedWork(s => s.submitVotes);
+
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="flex justify-start">
@@ -40,22 +44,36 @@ const VotedWorks = ({ roundId, roundName }: VotedWorkProps) => {
         ))}
       </div>
       <div className="flex flex-grow flex-col items-center justify-center">
-        <AlertDialog>
+        <AlertDialog open={open}>
           <AlertDialogTrigger asChild>
-            <Button variant={"destructive"} size={"lg"}>
+            <Button
+              variant={"destructive"}
+              size={"lg"}
+              onClick={() => setOpen(true)}
+            >
               提交
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>确认真的要提交吗?</AlertDialogTitle>
+              <AlertDialogTitle>
+                {errorMsg || "确认真的要提交吗?"}
+              </AlertDialogTitle>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel onClick={() => setOpen(false)}>
+                Cancel
+              </AlertDialogCancel>
               <form
                 onSubmit={async e => {
                   e.preventDefault();
-                  await submitVotes();
+                  const msg = await submitVotes();
+                  if (msg) {
+                    setErrorMsg(msg);
+                    setOpen(true);
+                    return;
+                  }
+                  setOpen(false);
                 }}
               >
                 <AlertDialogAction

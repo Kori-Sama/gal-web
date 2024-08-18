@@ -4,7 +4,6 @@ import { CategoryType, WorkType } from "@/lib/types";
 const MAX_CATEGORY_VOTE = 3;
 
 interface VotedWorkState {
-  currentYear: number;
   /**
    * 从服务器获取的所有分类
    */
@@ -19,7 +18,7 @@ interface VotedWorkState {
   fetchCategories: () => Promise<void>;
   vote: (work: WorkType, categoryId: string) => boolean;
   cancelVote: (workId: number, categoryId: string) => void;
-  submitVotes: () => Promise<void>;
+  submitVotes: () => Promise<string | null>;
 }
 
 export const useVotedWork = create<VotedWorkState>()((set, get) => ({
@@ -82,18 +81,25 @@ export const useVotedWork = create<VotedWorkState>()((set, get) => ({
       }),
     );
 
+    if (votes.length === 0) {
+      return "你还没投票呢";
+    }
+
     const res = await fetch("api/votes/submit", {
       method: "POST",
       body: JSON.stringify({
-        year: get().currentYear,
         votes,
       }),
     });
 
-    if (!res.ok) {
+    const obj = await res.json();
+
+    if (!res.ok && obj.message !== "ok") {
       console.error("Failed to submit votes");
-      return;
+      return obj.message;
     }
+
+    return null;
 
     // set({ categoryVotes: new Map() });
   },
