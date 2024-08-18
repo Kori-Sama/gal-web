@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/carousel";
 import { useRef } from "react";
 
-export default function HomePage() {
+const HomePage = () => {
   return (
     <main className="flex h-full w-full flex-col">
       <div className="flex h-full w-full select-none bg-[url('/bg.webp')] bg-cover bg-center dark:bg-[url('/dark-bg.webp')] lg:h-[92vh]">
@@ -37,8 +37,8 @@ export default function HomePage() {
       <div className="h-svh w-full bg-slate-800"></div>
     </main>
   );
-}
-
+};
+export default HomePage;
 interface ImageProps {
   src: string;
   alt: string;
