@@ -84,6 +84,10 @@ export async function getVotes({
     .leftJoin(works, eq(votes.workId, works.id))
     .orderBy(desc(votes.createdAt))) as VoteType[];
 
+  if (!isFullInfo) {
+    return votesData;
+  }
+
   for await (const vote of votesData) {
     const qqInfo = await fetchQqInfo(vote.user!.qqNumber);
     if (qqInfo) {

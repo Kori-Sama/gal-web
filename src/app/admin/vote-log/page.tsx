@@ -6,49 +6,19 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Avatar } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { fetchQqInfo, getVotes } from "@/lib/services";
-import { UserInfo, votesGroupByCategory, VoteType } from "@/lib/types";
+import { getVotes } from "@/lib/services";
+import { UserInfo, VoteType } from "@/lib/types";
 import dayjs from "dayjs";
 import Image from "next/image";
 
-const groupByUser = (votes: VoteType[]) => {
-  const grouped = votes.reduce(
-    (acc, vote) => {
-      const userId = vote.user.id;
-
-      if (!acc[userId]) {
-        acc[userId] = {
-          user: vote.user,
-          date: dayjs(vote.createdAt).format("YYYY/MM/DD HH:mm:ss"),
-          votes: [],
-        };
-      }
-
-      acc[userId].votes.push(vote);
-
-      return acc;
-    },
-    {} as Record<
-      string,
-      {
-        user: UserInfo;
-        date: string;
-        votes: VoteType[];
-      }
-    >,
-  );
-
-  return grouped;
-};
-
 const VoteLog = async () => {
-  const votes = await getVotes({
-    isFullInfo: true,
-  });
+  const votes =
+    (await getVotes({
+      isFullInfo: true,
+    })) ?? [];
 
-  const userVotes = Object.entries(groupByUser(votes as VoteType[]));
+  const userVotes = Object.entries(groupByUser(votes));
 
   return (
     <ContentCard title="投票记录">
@@ -104,3 +74,46 @@ const VoteLog = async () => {
 };
 
 export default VoteLog;
+
+const groupByUser = (votes: VoteType[]) => {
+  const grouped = votes.reduce(
+    (acc, vote) => {
+      const userId = vote.user.id;
+
+      if (!acc[userId]) {
+        acc[userId] = {
+          user: vote.user,
+          date: dayjs(vote.createdAt).format("YYYY/MM/DD HH:mm:ss"),
+          votes: [],
+        };
+      }
+
+      acc[userId].votes.push(vote);
+
+      return acc;
+    },
+    {} as Record<
+      string,
+      {
+        user: UserInfo;
+        date: string;
+        votes: VoteType[];
+      }
+    >,
+  );
+
+  return grouped;
+};
+
+function votesGroupByCategory(votes: VoteType[]) {
+  const grouped = new Map<string, VoteType[]>();
+
+  votes.forEach(vote => {
+    const category = vote.category.name;
+    const votes = grouped.get(category) || [];
+    votes.push(vote);
+    grouped.set(category, votes);
+  });
+
+  return grouped;
+}

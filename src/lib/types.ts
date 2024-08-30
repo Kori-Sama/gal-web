@@ -39,16 +39,3 @@ export type VoteType = {
   work: WorkType;
   createdAt: Date;
 };
-
-export function votesGroupByCategory(votes: VoteType[]) {
-  const grouped = new Map<string, VoteType[]>();
-
-  votes.forEach(vote => {
-    const category = vote.category.name;
-    const votes = grouped.get(category) || [];
-    votes.push(vote);
-    grouped.set(category, votes);
-  });
-
-  return grouped;
-}
