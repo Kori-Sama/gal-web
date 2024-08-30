@@ -88,13 +88,19 @@ export async function getVotes({
     return votesData;
   }
 
-  for await (const vote of votesData) {
-    const qqInfo = await fetchQqInfo(vote.user!.qqNumber);
+  // 并发得请求所有QQ信息
+  const fetchPromises = votesData.map(async vote => {
+    if (!vote.user) return;
+
+    const qqInfo = await fetchQqInfo(vote.user.qqNumber);
     if (qqInfo) {
-      vote.user!.username = qqInfo.username;
-      vote.user!.avatarUrl = qqInfo.avatarUrl;
+      vote.user.username = qqInfo.username;
+      vote.user.avatarUrl = qqInfo.avatarUrl;
     }
-  }
+  });
+
+  // 等待所有请求完成
+  await Promise.all(fetchPromises);
 
   return votesData;
 }
