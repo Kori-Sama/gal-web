@@ -16,7 +16,25 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "q1.qlogo.cn",
+        port: "",
+        pathname: "/headimg_dl/**",
+      },
+      {
+        protocol: "https",
+        hostname: "q2.qlogo.cn",
+        port: "",
+        pathname: "/headimg_dl/**",
+      },
+      {
+        protocol: "https",
         hostname: "q3.qlogo.cn",
+        port: "",
+        pathname: "/headimg_dl/**",
+      },
+      {
+        protocol: "https",
+        hostname: "q4.qlogo.cn",
         port: "",
         pathname: "/headimg_dl/**",
       },

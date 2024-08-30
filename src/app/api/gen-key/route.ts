@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { inviteKeys } from "@/db/schema";
+import { inviteKeys, users } from "@/db/schema";
 import { Created, Forbidden, Ok, Unauthorized } from "@/lib/response";
 import { getSession } from "@/lib/session";
 import { isAdmin } from "@/lib/utils";
@@ -24,9 +24,15 @@ export async function GET(req: Request) {
       key: inviteKeys.key,
       createdAt: inviteKeys.createdAt,
       expiredAt: inviteKeys.expiresAt,
+      invitedUser: {
+        id: users.id,
+        qqNumber: users.qqNumber,
+        role: users.role,
+      },
     })
     .from(inviteKeys)
     .where(eq(inviteKeys.generatedBy, session.id))
+    .leftJoin(users, eq(inviteKeys.key, users.id))
     .orderBy(desc(inviteKeys.createdAt));
 
   return Ok(keys);

@@ -33,6 +33,24 @@ const AdminSideBar = () => {
           >
             投票管理
           </Link>
+          <Link
+            href="/admin/rank"
+            className={cn(
+              linkClassName,
+              pathname === "/admin/rank" && "bg-secondary/60",
+            )}
+          >
+            投票排行
+          </Link>
+          <Link
+            href="/admin/vote-log"
+            className={cn(
+              linkClassName,
+              pathname === "/admin/vote-log" && "bg-secondary/60",
+            )}
+          >
+            投票记录
+          </Link>
         </nav>
       </CardContent>
     </Card>
