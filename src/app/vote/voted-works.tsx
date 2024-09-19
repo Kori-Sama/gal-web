@@ -17,6 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { WorkType } from "@/lib/types";
 import { useVotedWork } from "@/store/voted-work";
 import { useState } from "react";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface VotedWorkProps {
   roundId: number;
@@ -32,8 +33,8 @@ const VotedWorks = ({ roundId, roundName }: VotedWorkProps) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex justify-start">
-      <div className="flex w-[1000px] flex-col justify-center gap-8 pr-64">
+    <div className="mb-25 relative flex h-full w-full justify-start">
+      <div className="flex h-full w-full flex-col items-center gap-3">
         {categories.map(({ id, name }) => (
           <VotedCard
             key={id}
@@ -43,7 +44,7 @@ const VotedWorks = ({ roundId, roundName }: VotedWorkProps) => {
           />
         ))}
       </div>
-      <div className="flex flex-grow flex-col items-center justify-center">
+      <div className="absolute -bottom-20 right-5">
         <AlertDialog open={open}>
           <AlertDialogTrigger asChild>
             <Button
@@ -103,19 +104,24 @@ const VotedCard = ({ categoryId, categoryName, works }: VotedCardProps) => {
   const cancelVote = useVotedWork(s => s.cancelVote);
 
   return (
-    <Card className="h-[250px] w-[1000px] bg-slate-200 bg-gradient-to-r px-4 pt-4 dark:bg-gray-600">
+    <Card className="h-[250px] w-[88%] px-2 pt-3 dark:bg-gray-600">
       <CardTitle>{categoryName}</CardTitle>
       <Separator className="my-4 bg-foreground/20" />
-      <CardContent className="flex justify-start gap-8 pl-16">
-        {works.map(w => (
-          <MiniWorkCard
-            key={w.id}
-            work={w}
-            onCancel={workId => {
-              cancelVote(workId, categoryId);
-            }}
-          />
-        ))}
+      <CardContent className="gap-8 px-4">
+        <ScrollArea className="w-full whitespace-nowrap">
+          <div className="my-3 flex gap-4">
+            {works.map(w => (
+              <MiniWorkCard
+                key={w.id}
+                work={w}
+                onCancel={workId => {
+                  cancelVote(workId, categoryId);
+                }}
+              />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </CardContent>
     </Card>
   );

@@ -10,6 +10,7 @@ def insert_work(work: Work):
 
 
 def read_csv():
+    # need data.csv file 
     with open('data.csv', 'r', encoding='utf-8') as f:
         rows = f.readlines()
         for row in tqdm(rows, desc="Inserting records"):
@@ -24,10 +25,11 @@ def read_csv():
 
 
 if __name__ == '__main__':
-    conn = psycopg2.connect(database="test", host="127.0.0.1",
-                            user="root",
-                            password="123456",
-                            port="5433")
+    # Connect to the database.Modify the connection parameters according to your environment
+    conn = psycopg2.connect(database="postgres", host="127.0.0.1",
+                            user="postgres",
+                            password="zaqxsw",
+                            port="5432")
 
     cursor = conn.cursor()
     read_csv()

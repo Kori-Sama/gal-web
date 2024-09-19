@@ -25,7 +25,6 @@ import Link from "next/link";
 import { logout } from "@/lib/actions";
 import { UserInfo } from "@/lib/types";
 import { useEffect, useState } from "react";
-
 interface NavAvatarProps {
   userInfo: UserInfo | null;
   className?: string;
@@ -47,6 +46,7 @@ const NavAvatar = ({ userInfo, className }: NavAvatarProps) => {
     fetch(`/api/qq-info?qq=${userInfo.qqNumber}`)
       .then(res => res.json())
       .then(({ data }) => {
+        userInfo.username = data.username;
         setUsername(data.username);
         setAvatarUrl(data.avatarUrl);
       })
