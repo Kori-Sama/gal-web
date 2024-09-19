@@ -58,7 +58,7 @@ const SearchArea = () => {
           Search
         </Button>
       </form>
-      <ScrollArea className="mb-8 h-[600px] w-[360px] flex-grow rounded-md border border-foreground">
+      <ScrollArea className="mb-8 w-[80svw] rounded-md border border-foreground py-4 md:w-[33svw]">
         <div className="flex flex-col items-center justify-center gap-8 py-8">
           {results.length === 0 && hasQuery ? (
             <h1 className="mt-36 text-[30px]">

@@ -8,13 +8,13 @@ const VotePage = async () => {
   return (
     <>
       {round ? (
-        <div className="relative top-16 grid grid-cols-1 gap-4 p-0 md:top-0 md:grid-cols-5 md:p-0 lg:grid-cols-4 lg:p-4">
-          <div className="order-1 col-span-3 bg-white bg-opacity-0 p-2 md:order-2 md:col-span-4 lg:col-span-3">
+        <div className="flex w-svw flex-col items-center justify-between md:flex-row">
+          <div className="order-1 mt-16 h-svh w-full md:order-2 md:h-[80svh] md:w-[60svw]">
             <main>
               <VotedWorks roundId={round.id} roundName={round.roundName} />
             </main>
           </div>
-          <div className="top-4 order-2 hidden bg-white bg-opacity-0 p-2 max-md:hidden md:order-1 md:col-span-1 md:inline">
+          <div className="order-2 w-full md:order-1 md:ml-12 md:h-[80svh] md:w-[33svw]">
             <SearchArea />
           </div>
         </div>

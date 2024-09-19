@@ -55,7 +55,7 @@ const WorkCard = ({ work, categories }: WorkCardProps) => {
   });
 
   return (
-    <Card className="flex h-[160px] w-[300px] transform items-center justify-start px-4 transition-transform hover:scale-105">
+    <Card className="flex h-[160px] w-[90%] transform items-center justify-start px-4 transition-transform hover:scale-105">
       <Image
         src={coverImage}
         alt={title}
@@ -77,7 +77,7 @@ const WorkCard = ({ work, categories }: WorkCardProps) => {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  className="w-[120px] justify-between"
+                  className="justify-between"
                 >
                   {"Select"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

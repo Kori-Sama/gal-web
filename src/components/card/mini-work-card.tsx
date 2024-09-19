@@ -27,7 +27,7 @@ const MiniWorkCard = ({ work, onCancel }: MiniWorkCardProps) => {
         </Link>
       </CardTitle>
       <Button
-        className="absolute -right-2 -top-2 size-6 rounded-full"
+        className="absolute -right-2 -top-2 size-6 overflow-visible rounded-full"
         variant={"destructive"}
         size={"icon"}
         onClick={() => onCancel(work.id)}

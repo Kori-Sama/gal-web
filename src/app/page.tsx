@@ -96,7 +96,7 @@ const CarouselCard = () => {
 
 const LogoField = () => {
   return (
-    <div className="flex h-full w-full flex-col justify-center rounded-3xl shadow-xl transition duration-700 ease-linear hover:backdrop-blur-sm">
+    <div className="flex h-full w-full flex-col justify-center rounded-3xl transition duration-700 ease-linear hover:backdrop-blur-sm">
       <div className="flex flex-col items-center justify-center lg:flex-row">
         <div className="order-2 py-3 text-6xl font-extrabold text-gray-700 dark:text-slate-200 lg:order-1 lg:text-8xl">
           0721の
@@ -121,11 +121,10 @@ const LogoField = () => {
 const PanelField = () => {
   //判断用户是否登录
   const userInfo = useUser(s => s.userInfo);
-  // userInfo.id = "Cypress";
   const GuestPanel = () => (
     <>
-      <div className="flex rounded-xl bg-gray-400 bg-opacity-10 p-4 transition duration-300 ease-linear hover:bg-white hover:bg-opacity-30 hover:backdrop-blur-md">
-        欢迎回家, {userInfo.id}
+      <div className="flex rounded-xl bg-gray-400 bg-opacity-0 p-4 transition duration-300 ease-linear hover:bg-white hover:bg-opacity-30 hover:backdrop-blur-md dark:text-gray-300">
+        欢迎回家, {userInfo.username}
         <br />
         今天想要做些什么呢？
       </div>
@@ -138,7 +137,7 @@ const PanelField = () => {
     const audioRef = useRef<HTMLAudioElement | null>(null); //for pausing the current audio
     return (
       <>
-        <Collapsible className="m-2 flex w-full flex-col rounded-xl bg-opacity-10 p-4 shadow-xl transition duration-300 ease-linear hover:bg-white hover:bg-opacity-30 hover:backdrop-blur-sm">
+        <Collapsible className="m-2 flex w-full flex-col rounded-xl bg-opacity-10 p-4 transition duration-300 ease-linear hover:bg-white hover:bg-opacity-30 hover:backdrop-blur-sm">
           <CollapsibleTrigger className="dark:text-gray-300">
             你是...?
           </CollapsibleTrigger>
