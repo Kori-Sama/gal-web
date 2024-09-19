@@ -4,6 +4,8 @@ export type UserInfo = {
   id: string;
   qqNumber: string;
   role: Role;
+  username?: string;
+  avatarUrl?: string;
 };
 
 export type CategoryType = {
@@ -24,4 +26,16 @@ export type InviteKeyType = {
   generatedBy: string;
   createdAt: Date;
   expiresAt: Date;
+  invitedUser: UserInfo;
+};
+
+export type VoteType = {
+  id: number;
+  user: UserInfo;
+  category: {
+    id: number;
+    name: string;
+  };
+  work: WorkType;
+  createdAt: Date;
 };

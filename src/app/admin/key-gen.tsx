@@ -64,9 +64,17 @@ const KeyGen = () => {
                     {copiedId === key.id ? <Check /> : <Copy />}
                   </Button>
                 </div>
-                <Label className="ml-4 mt-1">
-                  生成时间: {dayjs(key.createdAt).format("YYYY-MM-DD HH:mm:ss")}
-                </Label>
+                <div className="mt-1 flex justify-between">
+                  <Label className="ml-4">
+                    生成时间:{" "}
+                    {dayjs(key.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+                  </Label>
+                  <Label className="mr-16">
+                    {key.invitedUser === null
+                      ? "未被使用"
+                      : `邀请用户: ${key.invitedUser.qqNumber}`}
+                  </Label>
+                </div>
               </div>
             ))}
         </div>

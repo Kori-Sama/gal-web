@@ -9,35 +9,35 @@
        URL: https://gradient.page */
 
     /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: #333333;
-    --background: 0 95% 98.4%;
-    --foreground: 0 0% 0.8%;
+    --gradient: #283048;
+    --background: 239 96.45% 98.44%;
+    --foreground: 239 2.9% 0.88%;
 
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 42%;
+    --muted: 239 2.9% 92.2%;
+    --muted-foreground: 239 1.45% 42.2%;
 
-    --popover: 0 90% 92%;
-    --popover-foreground: 0 0% 1%;
+    --popover: 239 66.8% 92.2%;
+    --popover-foreground: 239 2.9% 1.1%;
 
-    --card: 0 90% 92%;
-    --card-foreground: 0 0% 1%;
+    --card: 239 66.8% 92.2%;
+    --card-foreground: 239 2.9% 1.1%;
 
-    --border: 0 5% 89.8%;
-    --input: 0 5% 89.8%;
+    --border: 239 7.9% 89.88%;
+    --input: 239 7.9% 89.88%;
 
-    --primary: 0 0% 20%;
-    --primary-foreground: 0 0% 92%;
+    --primary: 239 29% 22%;
+    --primary-foreground: 239 0.58% 92.2%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 1% 12%;
+    --secondary: 239 1.45% 96.1%;
+    --secondary-foreground: 239 2.7399999999999998% 12.2%;
 
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 1% 12%;
+    --accent: 239 1.45% 96.1%;
+    --accent-foreground: 239 2.7399999999999998% 12.2%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 0 0% 20%;
+    --ring: 239 29% 22%;
 
     --radius: 0.5rem;
   }
@@ -48,36 +48,36 @@
        URL: https://gradient.page */
 
     /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: #dbe6f6;
+    --gradient: #1488cc;
 
-    --background: 229 39% 7.28%;
-    --foreground: 229 6% 99.55%;
+    --background: 215 53.3% 3.52%;
+    --foreground: 215 8.2% 97.2%;
 
-    --muted: 229 30% 27.3%;
-    --muted-foreground: 229 6% 59.1%;
+    --muted: 215 41% 13.2%;
+    --muted-foreground: 215 8.2% 54.4%;
 
-    --popover: 229 53% 11.83%;
-    --popover-foreground: 229 6% 99.55%;
+    --popover: 215 48.6% 5.72%;
+    --popover-foreground: 215 8.2% 97.2%;
 
-    --card: 229 53% 11.83%;
-    --card-foreground: 229 6% 99.55%;
+    --card: 215 48.6% 5.72%;
+    --card-foreground: 215 8.2% 97.2%;
 
-    --border: 229 30% 27.3%;
-    --input: 229 30% 27.3%;
+    --border: 215 41% 13.2%;
+    --input: 215 41% 13.2%;
 
-    --primary: 229 60% 91%;
-    --primary-foreground: 229 6% 9.1%;
+    --primary: 215 82% 44%;
+    --primary-foreground: 215 8.2% 97.2%;
 
-    --secondary: 229 30% 27.3%;
-    --secondary-foreground: 229 6% 99.55%;
+    --secondary: 215 41% 13.2%;
+    --secondary-foreground: 215 8.2% 97.2%;
 
-    --accent: 229 30% 27.3%;
-    --accent-foreground: 229 6% 99.55%;
+    --accent: 215 41% 13.2%;
+    --accent-foreground: 215 8.2% 97.2%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 229 6% 99.55%;
+    --destructive-foreground: 215 8.2% 97.2%;
 
-    --ring: 229 60% 91%;
+    --ring: 215 82% 44%;
   }
 }
 

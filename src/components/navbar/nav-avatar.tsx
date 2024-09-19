@@ -45,10 +45,13 @@ const NavAvatar = ({ userInfo, className }: NavAvatarProps) => {
       return;
     }
     fetch(`/api/qq-info?qq=${userInfo.qqNumber}`)
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(({ data }) => {
         setUsername(data.username);
         setAvatarUrl(data.avatarUrl);
+      })
+      .catch(err => {
+        console.error(err);
       });
   }, [userInfo]);
 
@@ -68,7 +71,7 @@ const NavAvatar = ({ userInfo, className }: NavAvatarProps) => {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Link href="/login" className="size-full text-sm font-medium ">
+                <Link href="/login" className="size-full text-sm font-medium">
                   Login
                 </Link>
               </DropdownMenuItem>
@@ -91,7 +94,7 @@ const NavAvatar = ({ userInfo, className }: NavAvatarProps) => {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <form action={logout}>
               <AlertDialogAction
-                className="bg-destructive hover:bg-destructive/60 w-full"
+                className="w-full bg-destructive hover:bg-destructive/60"
                 type="submit"
               >
                 Confirm
